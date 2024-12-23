@@ -4,11 +4,11 @@ const people = [
     age: "NA",
     employed: true,
     profession: "Software engineer",
-    location: "Pune",
-    hobbies: "playing chess and gardening",
+    city: "Pune",
+    hobbies: ["gardening", "playing chess"],
     ownsCar: true,
     transportation: "car",
-    eduation: "Computer Science",
+    eduation: ["Computer Science"],
     ownsPet: true,
     NumOfPets: 1,
     pets: [
@@ -18,7 +18,7 @@ const people = [
         age: 4,
         isVaccinated: true,
         fullyVaccinated: true,
-        hobbies: "playing fetch in the park",
+        hobbies: ["playing fetch in the park"],
       },
     ],
   },
@@ -28,11 +28,11 @@ const people = [
     age: 30,
     employed: false,
     profession: "NA",
-    location: "Bangalore",
-    hobbies: "cooking and experimenting with Italian recipes",
+    city: "Bangalore",
+    hobbies: ["cooking"],
     ownsCar: false,
     transportation: "public transport",
-    eduation: "Computer Science and minor in Graphic Designing",
+    eduation: ["Computer Science", "Graphic Designing"],
     ownsPet: true,
     NumOfPets: 1,
     pets: [
@@ -41,7 +41,7 @@ const people = [
         name: "Kiwi",
         isVaccinated: true,
         fullyVaccinated: false,
-        hobbies: "mimicking Ananya's Voice",
+        hobbies: ["mimicking Ananya's Voice"],
         phrases: 20,
       },
     ],
@@ -52,11 +52,11 @@ const people = [
     age: 45,
     employed: true,
     profession: "Business owner",
-    location: "Jaipur",
-    hobbies: "gardening, tending rose garden and reading historical fiction",
+    city: "Jaipur",
+    hobbies: ["gardening", "tending rose garden", "reading historical fiction"],
     ownsCar: false,
     transportation: "NA",
-    eduation: "Computer Science",
+    eduation: ["Computer Science"],
     ownsPet: true,
     NumOfPets: 2,
     pets: [
@@ -66,7 +66,7 @@ const people = [
         age: 3,
         isVaccinated: true,
         fullyVaccinated: true,
-        hobbies: "lounging in the sun",
+        hobbies: ["lounging in the sun"],
       },
       {
         breed: "Persian Cat",
@@ -74,7 +74,7 @@ const people = [
         age: 3,
         isVaccinated: true,
         fullyVaccinated: true,
-        hobbies: "lounging in the sun",
+        hobbies: ["lounging in the sun"],
       },
     ],
   },
@@ -84,8 +84,8 @@ const people = [
     age: 28,
     employed: false,
     profession: "dancer",
-    location: "Chennai",
-    hobbies: "Reading modern fantasy novel and watching sci-fi shows",
+    city: "Chennai",
+    hobbies: ["Reading modern fantasy novel", "watching sci-fi shows"],
     ownsCar: false,
     transportation: "NA",
     eduation: "NA",
@@ -98,7 +98,7 @@ const people = [
         age: 2,
         isVaccinated: true,
         fullyVaccinated: false,
-        hobbies: "hopping around Kavya's backyard and nibbling on carrots",
+        hobbies: ["hopping around Kavya's backyard", "nibbling on carrots"],
       },
     ],
   },
@@ -123,6 +123,24 @@ const getPetDetails = (person) => person.pets.map(petNameAndType);
 const petDetails = people.flatMap(getPetDetails);
 
 // 5. Which cities do the individuals live in?
-const city = people.map((person) => [person.name, person.location]);
+const city = people.map((person) => [person.name, person.city]);
 
-console.log("City in which individual lives", city);
+// 6. How many hobbies are shared across the group? What are they?
+const sharedHobbies = function (hobbyList) {};
+
+// 7. How many pets belong to people who are currently unemployed?
+
+// 15. How many individuals have more than two hobbies?
+const moreThan2 = people.filter((person) => person.hobbies.length > 2).length;
+
+console.log("Number of people with more than 2 hobbies", moreThan2);
+
+// 19. How many individuals live in cities starting with the letter "B"?
+const cityWithB = people.filter((person) => person.city.at(0) === "B").length;
+
+// console.log("Number of people living in city starting with 'B':", cityWithB);
+
+// 20. Which individuals do not own any pets?
+const hasNoPets = people.filter((person) => person.NumOfPets === 0).length;
+
+// console.log("Number of people not owning any pets", hasNoPets);
