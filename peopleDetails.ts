@@ -107,12 +107,8 @@ const people = [
 // 1. How many individuals are currently employed?
 const getEmployed = people.filter((person) => person.employed).length;
 
-console.log("Number of People who are Employed:", getEmployed);
-
 // 2. How many people own a car?
 const getCarOwners = people.filter((person) => person.ownsCar).length;
-
-console.log("Number of People who owns Car:", getCarOwners);
 
 // 3. How many pets are fully vaccinated?
 const isFullyVaccinated = function (person) {
@@ -121,11 +117,12 @@ const isFullyVaccinated = function (person) {
 
 const fullyVaccinatedPets = people.flatMap(isFullyVaccinated).length;
 
-console.log("Number of fully vaccinated pets:", fullyVaccinatedPets);
-
 // 4. What are the names of all the pets, and what type of animal is each?
 const petNameAndType = (pet) => [pet.name, pet.breed];
 const getPetDetails = (person) => person.pets.map(petNameAndType);
 const petDetails = people.flatMap(getPetDetails);
 
-console.log("Pet Name and type: ", petDetails);
+// 5. Which cities do the individuals live in?
+const city = people.map((person) => [person.name, person.location]);
+
+console.log("City in which individual lives", city);
