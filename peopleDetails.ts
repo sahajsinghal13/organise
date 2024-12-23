@@ -6,7 +6,7 @@ const people = [
     profession: "Software engineer",
     location: "Pune",
     hobbies: "playing chess and gardening",
-    OwnsCar: true,
+    ownsCar: true,
     transportation: "car",
     ownsPet: true,
     pet: {
@@ -15,6 +15,7 @@ const people = [
       name: "Max",
       age: 4,
       isVaccinated: true,
+      fullyVaccinated: true,
       hobbies: "playing fetch in the park",
     },
     eduation: "Computer Science",
@@ -27,7 +28,7 @@ const people = [
     profession: "NA",
     location: "Bangalore",
     hobbies: "cooking and experimenting with Italian recipes",
-    OwnsVehicle: false,
+    ownsCar: false,
     transportation: "public transport",
     ownsPet: true,
     pet: {
@@ -35,6 +36,7 @@ const people = [
       breed: "parrot",
       name: "Kiwi",
       isVaccinated: true,
+      fullyVaccinated: false,
       hobbies: "mimicking Ananya's Voice",
       phrases: 20,
     },
@@ -48,7 +50,7 @@ const people = [
     profession: "Business owner",
     location: "Jaipur",
     hobbies: "gardening, tending rose garden and reading historical fiction",
-    OwnsVehicle: "NA",
+    ownsCar: false,
     transportation: "NA",
     ownsPet: true,
     pet: {
@@ -58,6 +60,7 @@ const people = [
         name: "Bella",
         age: 3,
         isVaccinated: true,
+        fullyVaccinated: true,
         hobbies: "lounging in the sun",
       },
       pet2: {
@@ -65,6 +68,7 @@ const people = [
         name: "Leo",
         age: 3,
         isVaccinated: true,
+        fullyVaccinated: true,
         hobbies: "lounging in the sun",
       },
     },
@@ -78,7 +82,7 @@ const people = [
     profession: "dancer",
     location: "Chennai",
     hobbies: "Reading modern fantasy novel and watching sci-fi shows",
-    OwnsVehicle: false,
+    ownsCar: false,
     transportation: "NA",
     ownsPet: true,
     pet: {
@@ -87,6 +91,7 @@ const people = [
       name: "Snowy",
       age: 2,
       isVaccinated: true,
+      fullyVaccinated: false,
       hobbies: "hopping around Kavya's backyard and nibbling on carrots",
     },
     eduation: "NA",
@@ -94,10 +99,11 @@ const people = [
 ];
 
 // 1. How many individuals are currently employed?
-const getNames = (person) => person.name;
+const getEmployed = () => people.filter((person) => person.employed).length;
 
-const peopleEmployed = function (people) {
-  return people.filter((person) => person.employed).map(getNames);
-};
+console.log("Number of People who are Employed:", getEmployed());
 
-console.log(peopleEmployed(people));
+// 2. How many people own a car?
+const getCarOwners = () => people.filter((person) => person.ownsCar).length;
+
+console.log("Number of People who owns Car:", getCarOwners());
