@@ -122,3 +122,10 @@ const isFullyVaccinated = function (person) {
 const fullyVaccinatedPets = people.flatMap(isFullyVaccinated).length;
 
 console.log("Number of fully vaccinated pets:", fullyVaccinatedPets);
+
+// 4. What are the names of all the pets, and what type of animal is each?
+const petNameAndType = (pet) => [pet.name, pet.breed];
+const getPetDetails = (person) => person.pets.map(petNameAndType);
+const petDetails = people.flatMap(getPetDetails);
+
+console.log("Pet Name and type: ", petDetails);
