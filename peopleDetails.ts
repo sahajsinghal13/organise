@@ -10,14 +10,14 @@ const people = [
     transportation: "car",
     eduation: ["Computer Science"],
     ownsPet: true,
-    NumOfPets: 1,
+    numOfPets: 1,
     pets: [
       {
-        breed: "Golden Retriever",
+        type: "Golden Retriever",
         name: "Max",
         age: 4,
         isVaccinated: true,
-        fullyVaccinated: true,
+        fullyVac: true,
         hobbies: ["playing fetch in the park"],
       },
     ],
@@ -34,13 +34,14 @@ const people = [
     transportation: "public transport",
     eduation: ["Computer Science", "Graphic Designing"],
     ownsPet: true,
-    NumOfPets: 1,
+    numOfPets: 1,
     pets: [
       {
-        breed: "parrot",
+        type: "parrot",
         name: "Kiwi",
+        age: "NA",
         isVaccinated: true,
-        fullyVaccinated: false,
+        fullyVac: false,
         hobbies: ["mimicking Ananya's Voice"],
         phrases: 20,
       },
@@ -53,27 +54,28 @@ const people = [
     employed: true,
     profession: "Business owner",
     city: "Jaipur",
-    hobbies: ["gardening", "tending rose garden", "reading historical fiction"],
+    hobbies: ["gardening", "tending rose garden", "reading"],
+    bookGenre: "historical fiction",
     ownsCar: false,
     transportation: "NA",
     eduation: ["Computer Science"],
     ownsPet: true,
-    NumOfPets: 2,
+    numOfPets: 2,
     pets: [
       {
-        breed: "Persian Cat",
+        type: "Persian Cat",
         name: "Bella",
         age: 3,
         isVaccinated: true,
-        fullyVaccinated: true,
+        fullyVac: true,
         hobbies: ["lounging in the sun"],
       },
       {
-        breed: "Persian Cat",
+        type: "Persian Cat",
         name: "Leo",
         age: 3,
         isVaccinated: true,
-        fullyVaccinated: true,
+        fullyVac: true,
         hobbies: ["lounging in the sun"],
       },
     ],
@@ -85,19 +87,20 @@ const people = [
     employed: false,
     profession: "dancer",
     city: "Chennai",
-    hobbies: ["Reading modern fantasy novel", "watching sci-fi shows"],
+    hobbies: ["Reading", "watching sci-fi shows"],
+    bookGenre: "modern fantasy novel",
     ownsCar: false,
     transportation: "NA",
     eduation: "NA",
     ownsPet: true,
+    numOfPets: 1,
     pets: [
       {
-        NumOfPets: 1,
-        breed: "Rescue rabbit",
+        type: "Rescue rabbit",
         name: "Snowy",
         age: 2,
         isVaccinated: true,
-        fullyVaccinated: false,
+        fullyVac: false,
         hobbies: ["hopping around Kavya's backyard", "nibbling on carrots"],
       },
     ],
@@ -105,42 +108,45 @@ const people = [
 ];
 
 // 1. How many individuals are currently employed?
-const getEmployed = people.filter((person) => person.employed).length;
+const getEmployed = people.filter(({ employed }) => employed).length;
 
 // 2. How many people own a car?
-const getCarOwners = people.filter((person) => person.ownsCar).length;
+const getCarOwners = people.filter(({ ownsCar }) => ownsCar).length;
 
+const pet = people.flatMap((person) => person.pets);
 // 3. How many pets are fully vaccinated?
-const isFullyVaccinated = function (person) {
-  return person.pets.filter((pet) => pet.fullyVaccinated);
-};
-
-const fullyVaccinatedPets = people.flatMap(isFullyVaccinated).length;
+const fullyVaccinatedPets = pet.filter(({ fullyVac }) => fullyVac).length;
 
 // 4. What are the names of all the pets, and what type of animal is each?
-const petNameAndType = (pet) => [pet.name, pet.breed];
-const getPetDetails = (person) => person.pets.map(petNameAndType);
-const petDetails = people.flatMap(getPetDetails);
+const petNameAndType = pet.map(({ name, type }) => ({ name, type }));
 
 // 5. Which cities do the individuals live in?
-const city = people.map((person) => [person.name, person.city]);
+const ResidentialCity = people.map(({ name, city }) => ({ name, city }));
 
 // 6. How many hobbies are shared across the group? What are they?
-const sharedHobbies = function (hobbyList) {};
+// const unique = (hobbyList, person) => person.hobbies;
+// const allHobbies = people.map({hobbies} => person.hobbies.reduce(unique, []));
 
-// 7. How many pets belong to people who are currently unemployed?
+// 7. How many pets belong to people who are currently unemployed ?
+const unemployeds = people.filter(({ employed }) => employed);
+const totalPets = (total, { numOfPets }) => total + numOfPets;
+const petOfUnemployeds = unemployeds.reduce(totalPets, 0);
 
 // 15. How many individuals have more than two hobbies?
-const moreThan2 = people.filter((person) => person.hobbies.length > 2).length;
-
-console.log("Number of people with more than 2 hobbies", moreThan2);
+const moreThan2 = people.filter(({ hobbies }) => hobbies.length > 2).length;
 
 // 19. How many individuals live in cities starting with the letter "B"?
-const cityWithB = people.filter((person) => person.city.at(0) === "B").length;
-
-// console.log("Number of people living in city starting with 'B':", cityWithB);
+const cityWithB = people.filter(({ city }) => city.at(0) === "B").length;
 
 // 20. Which individuals do not own any pets?
-const hasNoPets = people.filter((person) => person.NumOfPets === 0).length;
+const hasNoPets = people.filter(({ numOfPets }) => !numOfPets).length;
 
-// console.log("Number of people not owning any pets", hasNoPets);
+console.log("Number of people employed:", getEmployed, "\n");
+console.log("Number of people who owns a car:", getCarOwners, "\n");
+console.log("Number of fully vaccinated pets:", fullyVaccinatedPets, "\n");
+console.log("Name and Types of pets:", petNameAndType, "\n");
+console.log("City of residence of each person:", ResidentialCity, "\n");
+console.log("Number of people with more than 2 hobbies:", moreThan2, "\n");
+console.log("Number of people living in city with 'B':", cityWithB, "\n");
+console.log("Number of people not having any pets:", hasNoPets, "\n");
+console.log("Number of pets of unemployed people:", petOfUnemployeds, "\n");
