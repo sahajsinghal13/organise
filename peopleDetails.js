@@ -1,14 +1,14 @@
 const people = [
   {
     name: "Rahul",
-    age: "NA",
+    age: 37,
     employed: true,
     profession: "Software engineer",
     city: "Pune",
-    hobbies: ["gardening", "playing chess"],
+    hobbies: ["Gardening", "Playing Chess"],
     ownsCar: true,
     transportation: "car",
-    eduation: ["Computer Science"],
+    course: ["Comp Sci"],
     ownsPet: true,
     numOfPets: 1,
     pets: [
@@ -18,7 +18,7 @@ const people = [
         age: 4,
         isVaccinated: true,
         fullyVac: true,
-        hobbies: ["playing fetch in the park"],
+        activity: ["playing fetch in the park"],
       },
     ],
   },
@@ -29,10 +29,10 @@ const people = [
     employed: false,
     profession: "NA",
     city: "Bangalore",
-    hobbies: ["cooking"],
+    hobbies: ["Cooking"],
     ownsCar: false,
     transportation: "public transport",
-    eduation: ["Computer Science", "Graphic Designing"],
+    course: ["Comp Sci", "Graphic Designing"],
     ownsPet: true,
     numOfPets: 1,
     pets: [
@@ -42,7 +42,7 @@ const people = [
         age: "NA",
         isVaccinated: true,
         fullyVac: false,
-        hobbies: ["mimicking Ananya's Voice"],
+        activity: ["mimicking Ananya's Voice"],
         phrases: 20,
       },
     ],
@@ -54,11 +54,11 @@ const people = [
     employed: true,
     profession: "Business owner",
     city: "Jaipur",
-    hobbies: ["gardening", "tending rose garden", "reading"],
+    hobbies: ["Gardening", "Tending rose garden", "Reading"],
     bookGenre: "historical fiction",
     ownsCar: false,
     transportation: "NA",
-    eduation: ["Computer Science"],
+    course: ["Comp Sci"],
     ownsPet: true,
     numOfPets: 2,
     pets: [
@@ -68,7 +68,7 @@ const people = [
         age: 3,
         isVaccinated: true,
         fullyVac: true,
-        hobbies: ["lounging in the sun"],
+        activity: ["lounging in the sun"],
       },
       {
         type: "Persian Cat",
@@ -76,7 +76,7 @@ const people = [
         age: 3,
         isVaccinated: true,
         fullyVac: true,
-        hobbies: ["lounging in the sun"],
+        activity: ["lounging in the sun"],
       },
     ],
   },
@@ -87,11 +87,11 @@ const people = [
     employed: false,
     profession: "dancer",
     city: "Chennai",
-    hobbies: ["Reading", "watching sci-fi shows"],
+    hobbies: ["Reading", "Watching sci-fi shows"],
     bookGenre: "modern fantasy novel",
     ownsCar: false,
     transportation: "NA",
-    eduation: "NA",
+    course: "NA",
     ownsPet: true,
     numOfPets: 1,
     pets: [
@@ -101,7 +101,7 @@ const people = [
         age: 2,
         isVaccinated: true,
         fullyVac: false,
-        hobbies: ["hopping around Kavya's backyard", "nibbling on carrots"],
+        activity: ["hopping around Kavya's backyard", "nibbling on carrots"],
       },
     ],
   },
@@ -124,13 +124,39 @@ const petNameAndType = pet.map(({ name, type }) => ({ name, type }));
 const ResidentialCity = people.map(({ name, city }) => ({ name, city }));
 
 // 6. How many hobbies are shared across the group? What are they?
-// const unique = (hobbyList, person) => person.hobbies;
-// const allHobbies = people.map({hobbies} => person.hobbies.reduce(unique, []));
+const uniques = function (unique, hobby) {
+  unique.includes(hobby) ? unique : unique.push(hobby);
+  return unique;
+};
+
+const allHobbies = people.flatMap(({ hobbies }) => hobbies).reduce(uniques, []);
 
 // 7. How many pets belong to people who are currently unemployed ?
 const unemployeds = people.filter(({ employed }) => employed);
 const totalPets = (total, { numOfPets }) => total + numOfPets;
 const petOfUnemployeds = unemployeds.reduce(totalPets, 0);
+
+// 8. What is the average age of the individuals mentioned in the passage?
+const ages = people.reduce((sum, { age }) => sum + age, 0) / people.length;
+
+// 9. How many individuals have studied computer science, and how many of them
+// have pets?
+const compSci = people.filter(({ course }) =>
+  course.includes("Computer Science")
+);
+const havePets = compSci.filter(({ numOfPets }) => numOfPets !== 0);
+
+// 10. How many individuals own more than one pet?
+const moreThan1 = people.filter(({ numOfPets }) => numOfPets > 1).length;
+
+// 11. Which pets are associated with specific favorite activities ?
+const favActivities = pet.flatMap(({ name, activity }) => ({ name, activity }));
+
+// 12. What are the names of all animals that belong to people who live in
+//   Bangalore or Chennai ?
+const fromCities = ["Bangalore", "Chennai"];
+const peopleFrom = people.filter(({ city }) => fromCities.includes(city));
+const petsFrom = peopleFrom.map(({ pets }) => pets.map(({ name }) => name));
 
 // 15. How many individuals have more than two hobbies?
 const moreThan2 = people.filter(({ hobbies }) => hobbies.length > 2).length;
@@ -150,3 +176,11 @@ console.log("Number of people with more than 2 hobbies:", moreThan2, "\n");
 console.log("Number of people living in city with 'B':", cityWithB, "\n");
 console.log("Number of people not having any pets:", hasNoPets, "\n");
 console.log("Number of pets of unemployed people:", petOfUnemployeds, "\n");
+console.log("List of unique hobbies:", allHobbies, "\n");
+console.log("Number of unique hobbies:", allHobbies.length, "\n");
+console.log("Average age of all people:", ages, "\n");
+console.log("People who studied Computer Science:", compSci.length, "\n");
+console.log("Computer Science holders having pets:", havePets.length, "\n");
+console.log("People having more than 1 pets:", moreThan1, "\n");
+console.log("Pet Names and their favorite activities:", favActivities, "\n");
+console.log("Pets of people from Bangalore and Chennai:", petsFrom, "\n");
